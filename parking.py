@@ -71,13 +71,13 @@ def encode_to_decimal(v, s, ub, lb):
     if(v < 0): encoded *= -1
     return int(encoded)
 
-print(population[0][0])
-print(encode_to_decimal(population[0][0], BINARY_CODE_LENGTH, GAMMA_CONSTRAINTS[1], GAMMA_CONSTRAINTS[0]))
-
 def encode_to_binary(d):
-    return np.binary_repr(d)
+    binary = bin(d).replace("-", "")[2:].zfill(BINARY_CODE_LENGTH)
+    if d < 0:
+        binary = '-' + binary
+    return binary
 
-def decode(d, s, ub, lb):
+def decode_to_actual(d, s, ub, lb):
     R = ub - lb
     if(d < 0): 
         d *= -1
@@ -86,7 +86,8 @@ def decode(d, s, ub, lb):
         decoded *= -1
     return decoded 
 
-print(decode(encode_to_decimal(population[0][0], BINARY_CODE_LENGTH, GAMMA_CONSTRAINTS[0], GAMMA_CONSTRAINTS[1]), BINARY_CODE_LENGTH, GAMMA_CONSTRAINTS[1], GAMMA_CONSTRAINTS[0]))
+def decode_to_decimal(b):
+    int(b, 2)
 
 def J(i):
     # Where i is a np array [gamma_0, beta_0, ..., gamma_x, beta_x]
@@ -120,3 +121,42 @@ def eulers(gamma, beta, s0, t0, tf):
         solution.append(next)
     
     return solution.reverse()[0] # Return final state
+
+def toString(i):
+    out = []
+    j = 0
+    for num, v in enumerate(i):
+            if num % 2 == 0:
+                out.append(f"    gamma_{j}: {v}")
+            else:
+                out.append(f"    beta_{j}:  {v}")
+                j += 1
+    return "[\n" + ",\n".join(out) + "\n]"
+
+def individualToDecimal(i):
+    out = []
+    for num, v in enumerate(i):
+        if num % 2 == 0:
+            decimal = encode_to_decimal(v, 
+                BINARY_CODE_LENGTH, GAMMA_CONSTRAINTS[1], 
+                GAMMA_CONSTRAINTS[0])
+            out.append(decimal)
+        else:
+            decimal = encode_to_decimal(v, 
+                BINARY_CODE_LENGTH, BETA_CONSTRAINTS[1], 
+                BETA_CONSTRAINTS[0])
+            out.append(decimal)
+    return out
+
+def individualToBinary(i):
+    out = []
+    for x in i:
+        out.append(encode_to_binary(x))
+    return out
+
+decimal = individualToDecimal(population[0])
+binary = individualToBinary(decimal)
+
+print(toString(population[0]))
+print(toString(decimal))
+print(toString(binary))
