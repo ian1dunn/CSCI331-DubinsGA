@@ -1,5 +1,4 @@
 from Individual import Individual
-from config import *
 
 
 class Population:
