@@ -27,8 +27,26 @@ class Population:
             individual.add_parameter(array[i], array[i + 1])
         self.add_individual(individual)
 
-    def get_individuals(self):
-        return self.individuals
-
     def get_population_size(self):
         return len(self.individuals)
+
+    def get_fitness_ratios(self):
+        total_fitness = 0.0
+        ratios = []
+        for individual in self.individuals:
+            total_fitness += individual.g()
+        for individual in self.individuals:
+            ratios.append(individual.g() / total_fitness)
+        return ratios
+
+    def get_most_fit_individuals(self):
+        most_fit = self.individuals[0]
+        most_fit_2 = self.individuals[1]
+
+        for individual in self.individuals:
+            if individual.g() > most_fit.g():
+                most_fit = individual
+            elif individual.g() > most_fit_2.g():
+                most_fit_2 = individual
+
+        return most_fit, most_fit_2

@@ -108,6 +108,6 @@ class Individual:
         else:
             return K
 
-    # Fitness function of the individual
+    # Fitness function of the individual (higher g is better)
     def g(self):
         return 1 / (self.J() + 1)
