@@ -7,9 +7,7 @@ import numpy as np
 J_TOLERANCE = 0.1
 MAX_POP_SIZE = 500
 MAX_GENERATIONS = 1200
-MAX_EXECUTION_TIME_MIN = 7 * 60 * 1000
-MAX_EXECUTION_TIME = MAX_EXECUTION_TIME_MIN * \
-                     60 * 1000  # max execution time in ms
+MAX_EXECUTION_TIME_MIN = 7  # max execution time in minutes
 
 #
 # GA Configuration parameters
