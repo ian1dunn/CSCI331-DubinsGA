@@ -43,7 +43,7 @@ controls = final.get_individual_array()
 control_interpolations = final.get_control_interpolations()  # gamma, beta
 
 # Print final states
-s_f = states[::-1][0]
+s_f = Individual.get_s_f(states)
 print("\nFinal state values:")
 print(f"x_f = {s_f[0]}")
 print(f"y_f = {s_f[1]}")
