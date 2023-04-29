@@ -71,13 +71,12 @@ with open("controls.dat", "w") as file:
 #
 # GENERATE PLOTS
 #
-
-plt.style.use('seaborn-poster')
 x = np.linspace(0, NUM_OPTIMIZATION_PARAMETERS, 100)  # x axis containing the same amount of interpolated values
 
 # State history
 plt.figure()
 plt.grid()
+plt.title('x State History')
 plt.xlabel('Time (s)')
 plt.ylabel('x (ft)')
 plt.plot(x, states[:, 0], 'b')  # x
@@ -85,6 +84,7 @@ plt.savefig('x_state_history.png')
 
 plt.figure()
 plt.grid()
+plt.title('y State History')
 plt.xlabel('Time (s)')
 plt.ylabel('y (ft)')
 plt.plot(x, states[:, 1], 'b')  # y
@@ -92,6 +92,7 @@ plt.savefig('y_state_history.png')
 
 plt.figure()
 plt.grid()
+plt.title('α State History')
 plt.xlabel('Time (s)')
 plt.ylabel('α (rad)')
 plt.plot(x, states[:, 2], 'b')  # alpha
@@ -99,6 +100,7 @@ plt.savefig('alpha_state_history.png')
 
 plt.figure()
 plt.grid()
+plt.title('v State History')
 plt.xlabel('Time (s)')
 plt.ylabel('v (ft/s)')
 plt.plot(x, states[:, 3], 'b')  # v
@@ -107,6 +109,7 @@ plt.savefig('v_state_history.png')
 # Control History
 plt.figure()
 plt.grid()
+plt.title('γ Control History')
 plt.xlabel('Time (s)')
 plt.ylabel('γ (rad/s)')
 plt.plot(x, control_interpolations[0](x), 'b')  # gamma
@@ -114,6 +117,7 @@ plt.savefig('gamma_control_history.png')
 
 plt.figure()
 plt.grid()
+plt.title('β Control History')
 plt.xlabel('Time (s)')
 plt.ylabel('β (ft/$s^2$)')
 plt.plot(x, control_interpolations[1](x), 'b')  # beta
@@ -121,6 +125,7 @@ plt.savefig('beta_control_history.png')
 
 # State Trajectory
 plt.figure()
+plt.title('Final State Trajectory')
 
 # Draw horizontal boundaries
 plt.hlines(y=3, xmin=-15, xmax=-4, colors='black')
