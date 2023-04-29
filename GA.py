@@ -56,7 +56,7 @@ class GA:
 
     def evolve(self):
         population_new = Population()
-        elitism = 4
+        elitism = 4  # Number of individuals that elitism will be applied to (the # carried over)
 
         # Crossover and mutate
         for i in range(self.population.get_population_size() // 2):
