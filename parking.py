@@ -137,5 +137,4 @@ plt.xlabel('x (ft)')
 plt.ylabel('y (ft)')
 
 plt.grid()
-plt.show()
 plt.savefig('state_trajectory_with_obstacles.png')
