@@ -39,11 +39,12 @@ def mutate(binary_string):
 class GA:
     def __init__(self, population):
         self.population = population
+        self.population.calculate_fitness()  # Recalculate population fitness
         self.generation = 0
         self.fitness_ratios = population.get_fitness_ratios()
 
     def __str__(self):
-        most_fit = self.population.get_most_fit_individuals()
+        most_fit = self.population.get_most_fit_individuals(1)
         return f"Generation {self.generation} : J = {most_fit[0].J()}"
 
     def get_binary_parents(self):
@@ -55,10 +56,11 @@ class GA:
 
     def evolve(self):
         population_new = Population()
+        elitism = 4
 
         # Crossover and mutate
         for i in range(self.population.get_population_size() // 2):
-            if self.population.get_population_size() == MAX_POP_SIZE - 2:
+            if self.population.get_population_size() == MAX_POP_SIZE - elitism:
                 break
 
             parents = self.get_binary_parents()
@@ -68,11 +70,12 @@ class GA:
             population_new.add_individual(binary_string_to_individual(mutate(children[0])))
             population_new.add_individual(binary_string_to_individual(mutate(children[1])))
 
-        # Elitism - add 2 most fit individuals from old population
-        old_most_fit = self.population.get_most_fit_individuals()
-        population_new.add_individual(old_most_fit[0])
-        population_new.add_individual(old_most_fit[1])
+        # Elitism - add most fit individuals from old population
+        old_most_fit = self.population.get_most_fit_individuals(elitism)
+        for i in range(elitism):
+            population_new.add_individual(old_most_fit[i])
 
         self.population = population_new  # Set new population
+        self.population.calculate_fitness()  # Recalculate population fitness
         self.generation += 1  # Update generation
-        self.fitness_ratios = self.population.get_fitness_ratios()  # Recalculate fitness ratios
+        self.fitness_ratios = self.population.get_fitness_ratios()  # Get recalculated fitness ratios

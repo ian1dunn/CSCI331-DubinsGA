@@ -29,7 +29,7 @@ start = time.time()
 last = start
 max_time = time.time() + MAX_EXECUTION_TIME_MIN * 60  # Set timer for MAX_EXECUTION_TIME_MIN minutes from now
 while ga.generation <= MAX_GENERATIONS and time.time() < max_time \
-        and ga.population.get_most_fit_individuals()[0].J() > J_TOLERANCE:
+        and ga.population.get_most_fit_individuals(1)[0].J() > J_TOLERANCE:
     ga.evolve()
     print(ga)
     print(f"Took {round(time.time() - last, 2)} seconds for this generation ({round(time.time() - start, 2)} seconds "
@@ -37,7 +37,7 @@ while ga.generation <= MAX_GENERATIONS and time.time() < max_time \
     last = time.time()
 
 # Final individual properties
-final = ga.population.get_most_fit_individuals()[0]
+final = ga.population.get_most_fit_individuals(1)[0]
 states = np.array(final.get_states())
 controls = final.get_individual_array()
 control_interpolations = final.get_control_interpolations()  # gamma, beta

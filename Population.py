@@ -1,3 +1,5 @@
+import numpy as np
+
 from Individual import Individual
 
 
@@ -8,6 +10,7 @@ class Population:
         if len(individuals_array) > 0:
             for x in individuals_array:
                 self.add_individual_from_array(x)
+        self.fitness = []
 
     def __str__(self):
         out = []
@@ -30,23 +33,22 @@ class Population:
     def get_population_size(self):
         return len(self.individuals)
 
+    def calculate_fitness(self):
+        self.fitness = []
+        for individual in self.individuals:
+            self.fitness.append(individual.g())
+
     def get_fitness_ratios(self):
-        total_fitness = 0.0
+        total_fitness = np.sum(self.fitness)
         ratios = []
-        for individual in self.individuals:
-            total_fitness += individual.g()
-        for individual in self.individuals:
-            ratios.append(individual.g() / total_fitness)
+        for value in self.fitness:
+            ratios.append(value / total_fitness)
         return ratios
 
-    def get_most_fit_individuals(self):
-        most_fit = self.individuals[0]
-        most_fit_2 = self.individuals[1]
+    def get_most_fit_individuals(self, n):
+        sorted_fitness = np.sort(self.fitness)[::-1]  # Fitnesses in decreasing order
+        top_individuals = []
 
-        for individual in self.individuals:
-            if individual.g() > most_fit.g():
-                most_fit = individual
-            elif individual.g() > most_fit_2.g():
-                most_fit_2 = individual
-
-        return most_fit, most_fit_2
+        for i in range(n):
+            top_individuals.append(self.individuals[self.fitness.index(sorted_fitness[i])])
+        return top_individuals
