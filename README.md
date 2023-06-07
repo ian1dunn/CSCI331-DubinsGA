@@ -23,23 +23,28 @@ Where:
 - 𝛽 - acceleration (ft/s 2 )
 
 ### Sample Output
-See [`/output`]() for the final program output as well as its graphs.
+See [`/output`](https://github.com/ian1dunn/CSCI331-DubinsGA/tree/main/output) for an example of the final program output as well as its graphs and control history.
 
 ## Usage
 Edit config.py to modify the program parameters, if desired. These will change the way the genetic algorithm runs and creates new generations.
 > **NOTE:** This program takes a minute or two to run. It's as fast as I could get it and still much faster than the project requirements. The population sizes are large and each individual's control points need to be interpolated and operated on by Euler's method to find a list of final control states.
 
 Run `python parking.py` to run the main program driver. The algorithm will continue generating populations until an individual is within the valid threshold.
-It will then print out the final state the car ACTUALLY reached (this should be within a very small threshold of the expected final state) as well as display and save several graphs:
-- State Trajectory (the path of the car)
-- State Histories
-  - x
-  - y
-  - 𝛼
-  - v
-- Control Histories
-  - 𝛾
-  - 𝛽
+
+Once an individual is found, the driver will do several things: 
+- Print out the final state the car ACTUALLY reached.
+  - This should be within a very small threshold of the expected final state.
+- Save the final control history of the graph to a file named `controls.dat`.
+- Display and save several graphs:
+  - State Trajectory (the path of the car)
+  - State Histories
+    - x
+    - y
+    - 𝛼
+    - v
+  - Control Histories
+    - 𝛾
+    - 𝛽
 
 ### Parameters
 
